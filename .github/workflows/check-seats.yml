@@ -41,11 +41,14 @@ jobs:
 
             await page.waitForTimeout(10000);
 
-            const text = await page.locator("body").innerText();
+            const seats = await page.locator("button").evaluateAll(buttons =>
+  buttons.filter(b => {
+    const label = (b.innerText + " " + b.getAttribute("aria-label")).toLowerCase();
+    return label.includes("seat") && !label.includes("unavailable");
+  }).length
+);
 
-            const available =
-              !text.includes("Sold Out") &&
-              !text.includes("No seats available");
+const available = seats > 0;
 
             if (available) {
               await fetch(process.env.DISCORD_WEBHOOK, {
