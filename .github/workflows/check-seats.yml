@@ -71,8 +71,11 @@ const newSeats = seats > previousSeats;
     headers:{"Content-Type":"application/json"},
     body: JSON.stringify({
       content:
-      `🎟️ AMC seats may be available! Check now:\nhttps://www.amctheatres.com/showtimes/144316406/seats`
-    })
+`🚨 AMC SEAT ALERT 🚨
+${seats} possible seats detected.
+
+Open now:
+https://www.amctheatres.com/showtimes/144316406/seats`
   });
 }
 
