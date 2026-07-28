@@ -1,0 +1,25 @@
+name: AMC Seat Monitor
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check-seats:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check AMC page
+        run: |
+          echo "Checking AMC seats..."
+          curl -L "https://www.amctheatres.com/showtimes/144316406/seats" -o page.html
+
+      - name: Send Discord alert
+        if: success()
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{"content":"AMC seat monitor ran successfully. Check your showtime: https://www.amctheatres.com/showtimes/144316406/seats"}' \
+          $DISCORD_WEBHOOK
