@@ -53,7 +53,19 @@ jobs:
 
 const available = seats > 0;
 
-            if (available) {
+const fs = require("fs");
+
+let previousSeats = 0;
+
+if (fs.existsSync("seat-count.txt")) {
+  previousSeats = Number(fs.readFileSync("seat-count.txt"));
+}
+
+fs.writeFileSync("seat-count.txt", String(seats));
+
+const newSeats = seats > previousSeats;
+
+         if (newSeats) {
   await fetch(process.env.DISCORD_WEBHOOK, {
     method:"POST",
     headers:{"Content-Type":"application/json"},
