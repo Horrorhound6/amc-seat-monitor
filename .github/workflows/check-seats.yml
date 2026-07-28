@@ -51,15 +51,15 @@ jobs:
 const available = seats > 0;
 
             if (available) {
-              await fetch(process.env.DISCORD_WEBHOOK, {
-                method:"POST",
-                headers:{"Content-Type":"application/json"},
-                body: JSON.stringify({
-                  content:
-                  "🎟️ Possible AMC seats available! Check now:\nhttps://www.amctheatres.com/showtimes/144316406/seats"
-                })
-              });
-            }
+  await fetch(process.env.DISCORD_WEBHOOK, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({
+      content:
+      `🎟️ AMC seats may be available! Check now:\nhttps://www.amctheatres.com/showtimes/144316406/seats`
+    })
+  });
+}
 
             await browser.close();
           })();
