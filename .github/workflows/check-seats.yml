@@ -69,3 +69,9 @@ const available = seats > 0;
           EOF
 
           node check.js
+          
+      - name: Save seat count
+        uses: actions/upload-artifact@v4
+        with:
+          name: seat-count
+          path: seat-count.txt
